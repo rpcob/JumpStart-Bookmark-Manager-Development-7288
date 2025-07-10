@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../common/SafeIcon';
 import { useTheme } from '../contexts/ThemeContext';
 import { useBookmarks } from '../contexts/BookmarkContext';
 import toast from 'react-hot-toast';
-
-const { FiMoon, FiSun, FiImage, FiSearch, FiDownload, FiUpload, FiTrash2, FiEye } = FiIcons;
 
 const Settings = () => {
   const { theme, transparentCollections, toggleTheme, toggleTransparentCollections } = useTheme();
@@ -22,21 +20,62 @@ const Settings = () => {
     setSearchResults([]);
     
     try {
-      // Create sample Unsplash-style images using picsum.photos API
-      const mockResults = Array.from({ length: 6 }, (_, i) => ({
-        id: `${Date.now()}-${i}`,
-        urls: {
-          thumb: `https://picsum.photos/300/200?random=${Date.now() + i}&blur=0`,
-          full: `https://picsum.photos/1920/1080?random=${Date.now() + i}&blur=0`
+      // Using static images instead to avoid CORS issues
+      const staticBackgrounds = [
+        {
+          id: '1',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Mountain landscape'
         },
-        user: { name: `Photographer ${i + 1}` },
-        alt_description: `${searchTerm} related image ${i + 1}`
-      }));
+        {
+          id: '2',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Ocean waves'
+        },
+        {
+          id: '3',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Forest landscape'
+        },
+        {
+          id: '4',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Mountain lake'
+        },
+        {
+          id: '5',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Sunset landscape'
+        },
+        {
+          id: '6',
+          urls: {
+            thumb: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300&h=200&fit=crop',
+            full: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=1920&h=1080&fit=crop'
+          },
+          alt_description: 'Mountain range'
+        }
+      ];
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      setSearchResults(mockResults);
+      setSearchResults(staticBackgrounds);
     } catch (error) {
       toast.error('Failed to search for images. Try again later.');
       console.error('Search error:', error);
@@ -132,7 +171,7 @@ const Settings = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <SafeIcon icon={theme === 'light' ? FiSun : FiMoon} className="w-5 h-5 text-gray-500" />
+                <SafeIcon name={theme === 'light' ? "Sun" : "Moon"} className="w-5 h-5 text-gray-500" />
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">Theme</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -156,7 +195,7 @@ const Settings = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <SafeIcon icon={FiEye} className="w-5 h-5 text-gray-500" />
+                <SafeIcon name="Eye" className="w-5 h-5 text-gray-500" />
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">Transparent Collections</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -193,7 +232,7 @@ const Settings = () => {
           
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <SafeIcon icon={FiSearch} className="w-5 h-5 text-gray-400" />
+              <SafeIcon name="Search" className="w-5 h-5 text-gray-400" />
               <input
                 type="text"
                 value={searchTerm}
@@ -232,7 +271,7 @@ const Settings = () => {
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-colors">
                         <div className="p-2 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                          <SafeIcon icon={FiImage} className="w-4 h-4 text-primary-500" />
+                          <SafeIcon name="Image" className="w-4 h-4 text-primary-500" />
                         </div>
                       </div>
                     </div>
@@ -255,7 +294,7 @@ const Settings = () => {
                   onClick={() => updateBackgroundImage('')}
                   className="text-red-500 hover:text-red-600 transition-colors"
                 >
-                  <SafeIcon icon={FiTrash2} className="w-4 h-4" />
+                  <SafeIcon name="Trash2" className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -276,7 +315,7 @@ const Settings = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <SafeIcon icon={FiDownload} className="w-5 h-5 text-gray-500" />
+                <SafeIcon name="Download" className="w-5 h-5 text-gray-500" />
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">Export Data</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -294,7 +333,7 @@ const Settings = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <SafeIcon icon={FiUpload} className="w-5 h-5 text-gray-500" />
+                <SafeIcon name="Upload" className="w-5 h-5 text-gray-500" />
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">Import Data</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -315,7 +354,7 @@ const Settings = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <SafeIcon icon={FiTrash2} className="w-5 h-5 text-red-500" />
+                <SafeIcon name="Trash2" className="w-5 h-5 text-red-500" />
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">Clear All Data</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">

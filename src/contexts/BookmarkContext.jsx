@@ -48,7 +48,6 @@ export const BookmarkProvider = ({ children }) => {
               url: 'https://google.com',
               description: 'Search engine',
               favicon: 'https://www.google.com/favicon.ico',
-              tags: ['search', 'web'],
               notes: '',
               createdAt: new Date().toISOString(),
             },
@@ -58,7 +57,6 @@ export const BookmarkProvider = ({ children }) => {
               url: 'https://github.com',
               description: 'Code repository',
               favicon: 'https://github.com/favicon.ico',
-              tags: ['code', 'git'],
               notes: '',
               createdAt: new Date().toISOString(),
             },
@@ -80,7 +78,6 @@ export const BookmarkProvider = ({ children }) => {
               url: 'https://stackoverflow.com',
               description: 'Developer Q&A',
               favicon: 'https://stackoverflow.com/favicon.ico',
-              tags: ['help', 'programming'],
               notes: '',
               createdAt: new Date().toISOString(),
             },
@@ -88,7 +85,7 @@ export const BookmarkProvider = ({ children }) => {
           subcollections: [],
         },
       ];
-      
+
       setCollections(defaultCollections);
       saveBookmarks(defaultCollections);
     }
@@ -104,7 +101,7 @@ export const BookmarkProvider = ({ children }) => {
 
   const createCollection = (collectionData) => {
     const { name, color, icon, colspan = 1, customIcon = null, parentId = null } = collectionData;
-    
+
     const newCollection = {
       id: uuidv4(),
       name,
@@ -122,30 +119,23 @@ export const BookmarkProvider = ({ children }) => {
       // Add as subcollection
       const updated = collections.map(col => {
         if (col.id === parentId) {
-          return {
-            ...col,
-            subcollections: [...col.subcollections, newCollection]
-          };
+          return { ...col, subcollections: [...col.subcollections, newCollection] };
         }
-        
+
         // Check if parentId is in any subcollection
         if (col.subcollections && col.subcollections.length > 0) {
           const updatedSubcollections = col.subcollections.map(sub => {
             if (sub.id === parentId) {
-              return {
-                ...sub,
-                subcollections: [...(sub.subcollections || []), newCollection]
-              };
+              return { ...sub, subcollections: [...(sub.subcollections || []), newCollection] };
             }
             return sub;
           });
-          
           return { ...col, subcollections: updatedSubcollections };
         }
-        
+
         return col;
       });
-      
+
       setCollections(updated);
       saveBookmarks(updated);
     } else {
@@ -154,7 +144,7 @@ export const BookmarkProvider = ({ children }) => {
       setCollections(updated);
       saveBookmarks(updated);
     }
-    
+
     return newCollection;
   };
 
@@ -164,18 +154,15 @@ export const BookmarkProvider = ({ children }) => {
         if (col.id === id) {
           return { ...col, ...updates };
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
-          return {
-            ...col,
-            subcollections: updateCollectionRecursive(col.subcollections)
-          };
+          return { ...col, subcollections: updateCollectionRecursive(col.subcollections) };
         }
-        
+
         return col;
       });
     };
-    
+
     const updated = updateCollectionRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
@@ -191,7 +178,7 @@ export const BookmarkProvider = ({ children }) => {
           subcollections: col.subcollections ? filterCollectionsRecursive(col.subcollections) : []
         }));
     };
-    
+
     const updated = filterCollectionsRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
@@ -208,27 +195,20 @@ export const BookmarkProvider = ({ children }) => {
     const updateCollectionsRecursive = (collections) => {
       return collections.map(col => {
         if (col.id === collectionId) {
-          return {
-            ...col,
-            bookmarks: [...col.bookmarks, newBookmark]
-          };
+          return { ...col, bookmarks: [...col.bookmarks, newBookmark] };
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
-          return {
-            ...col,
-            subcollections: updateCollectionsRecursive(col.subcollections)
-          };
+          return { ...col, subcollections: updateCollectionsRecursive(col.subcollections) };
         }
-        
+
         return col;
       });
     };
-    
+
     const updated = updateCollectionsRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
-    
     return newBookmark;
   };
 
@@ -244,18 +224,15 @@ export const BookmarkProvider = ({ children }) => {
             )
           };
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
-          return {
-            ...col,
-            subcollections: updateBookmarksRecursive(col.subcollections)
-          };
+          return { ...col, subcollections: updateBookmarksRecursive(col.subcollections) };
         }
-        
+
         return col;
       });
     };
-    
+
     const updated = updateBookmarksRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
@@ -266,23 +243,17 @@ export const BookmarkProvider = ({ children }) => {
     const deleteBookmarkRecursive = (collections) => {
       return collections.map(col => {
         if (col.id === collectionId) {
-          return {
-            ...col,
-            bookmarks: col.bookmarks.filter(bm => bm.id !== bookmarkId)
-          };
+          return { ...col, bookmarks: col.bookmarks.filter(bm => bm.id !== bookmarkId) };
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
-          return {
-            ...col,
-            subcollections: deleteBookmarkRecursive(col.subcollections)
-          };
+          return { ...col, subcollections: deleteBookmarkRecursive(col.subcollections) };
         }
-        
+
         return col;
       });
     };
-    
+
     const updated = deleteBookmarkRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
@@ -300,18 +271,15 @@ export const BookmarkProvider = ({ children }) => {
         if (col.id === collectionId) {
           return { ...col, bookmarks: newOrder };
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
-          return {
-            ...col,
-            subcollections: reorderBookmarksRecursive(col.subcollections)
-          };
+          return { ...col, subcollections: reorderBookmarksRecursive(col.subcollections) };
         }
-        
+
         return col;
       });
     };
-    
+
     const updated = reorderBookmarksRecursive(collections);
     setCollections(updated);
     saveBookmarks(updated);
@@ -333,7 +301,7 @@ export const BookmarkProvider = ({ children }) => {
       });
       return result;
     };
-    
+
     return flattenCollections(collections);
   };
 
@@ -344,16 +312,15 @@ export const BookmarkProvider = ({ children }) => {
         if (col.id === id) {
           return col;
         }
-        
+
         if (col.subcollections && col.subcollections.length > 0) {
           const found = findCollectionRecursive(col.subcollections);
           if (found) return found;
         }
       }
-      
       return null;
     };
-    
+
     return findCollectionRecursive(collections);
   };
 
@@ -363,22 +330,21 @@ export const BookmarkProvider = ({ children }) => {
       // Filter bookmarks
       const filteredBookmarks = collection.bookmarks.filter(bookmark => {
         if (!searchQuery) return true;
-        
+
         const query = searchQuery.toLowerCase();
         return (
           bookmark.title.toLowerCase().includes(query) ||
           bookmark.description?.toLowerCase().includes(query) ||
           bookmark.url?.toLowerCase().includes(query) ||
-          bookmark.tags?.some(tag => tag.toLowerCase().includes(query)) ||
           bookmark.notes?.toLowerCase().includes(query)
         );
       });
-      
+
       // Filter subcollections
       const filteredSubcollections = collection.subcollections
         ? filterCollectionsRecursive(collection.subcollections)
         : [];
-      
+
       return {
         ...collection,
         bookmarks: filteredBookmarks,

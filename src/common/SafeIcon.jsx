@@ -6,12 +6,21 @@ const SafeIcon = ({ icon, name, ...props }) => {
   let IconComponent;
   
   try {
-    IconComponent = icon || (name && FiIcons[`Fi${name}`]);
+    if (icon) {
+      IconComponent = icon;
+    } else if (name) {
+      IconComponent = FiIcons[`Fi${name}`];
+    }
   } catch (e) {
-    IconComponent = null;
+    console.error('Icon error:', e);
+    IconComponent = FiAlertTriangle;
   }
   
-  return IconComponent ? React.createElement(IconComponent, props) : <FiAlertTriangle {...props} />;
+  if (!IconComponent) {
+    IconComponent = FiAlertTriangle;
+  }
+  
+  return React.createElement(IconComponent, props);
 };
 
 export default SafeIcon;

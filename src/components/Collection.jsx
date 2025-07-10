@@ -12,8 +12,6 @@ import EditCollectionModal from './EditCollectionModal';
 import { DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, horizontalListSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
-const { FiChevronDown, FiChevronRight, FiPlus, FiEdit2, FiTrash2, FiMoreHorizontal, FiGrid, FiList, FiMove, FiShare2, FiLock, FiGlobe, FiFolder } = FiIcons;
-
 const Collection = ({ collection, index, transparent, parentId = null, onDragEnd }) => {
   const { updateCollection, deleteCollection, reorderBookmarks, createCollection } = useBookmarks();
   const [showAddBookmark, setShowAddBookmark] = useState(false);
@@ -93,92 +91,23 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
     4: 'xl:col-span-4',
   };
 
-  const getCollectionIcon = () => {
-    if (collection.customIcon) {
-      return collection.customIcon;
-    }
-    
-    const iconMap = {
-      'Folder': FiIcons.FiFolder,
-      'Star': FiIcons.FiStar,
-      'Heart': FiIcons.FiHeart,
-      'Code': FiIcons.FiCode,
-      'Bookmark': FiIcons.FiBookmark,
-      'Grid': FiIcons.FiGrid,
-      'Home': FiIcons.FiHome,
-      'Work': FiIcons.FiBriefcase,
-      'School': FiIcons.FiBook,
-      'Music': FiIcons.FiMusic,
-      'Video': FiIcons.FiVideo,
-      'Image': FiIcons.FiImage,
-      'File': FiIcons.FiFile,
-      'Globe': FiIcons.FiGlobe,
-      'Shield': FiIcons.FiShield,
-      'Lock': FiIcons.FiLock,
-      'Key': FiIcons.FiKey,
-      'Tool': FiIcons.FiTool,
-      'Settings': FiIcons.FiSettings,
-      'Zap': FiIcons.FiZap,
-      'Target': FiIcons.FiTarget,
-      'Trophy': FiIcons.FiAward,
-      'Gift': FiIcons.FiGift,
-      'Coffee': FiIcons.FiCoffee,
-      'Camera': FiIcons.FiCamera,
-      'Headphones': FiIcons.FiHeadphones,
-      'Smartphone': FiIcons.FiSmartphone,
-      'Monitor': FiIcons.FiMonitor,
-      'Printer': FiIcons.FiPrinter,
-      'Server': FiIcons.FiServer,
-      'Cloud': FiIcons.FiCloud,
-      'Database': FiIcons.FiDatabase,
-      'Map': FiIcons.FiMap,
-      'Calendar': FiIcons.FiCalendar,
-      'Clock': FiIcons.FiClock,
-      'Sun': FiIcons.FiSun,
-      'Moon': FiIcons.FiMoon,
-      'User': FiIcons.FiUser,
-      'Users': FiIcons.FiUsers,
-      'Mail': FiIcons.FiMail,
-      'Phone': FiIcons.FiPhone,
-      'MessageSquare': FiIcons.FiMessageSquare,
-      'Bell': FiIcons.FiBell,
-      'Search': FiIcons.FiSearch,
-      'List': FiIcons.FiList,
-      'Package': FiIcons.FiPackage,
-      'Box': FiIcons.FiBox,
-      'Tag': FiIcons.FiTag,
-      'ShoppingCart': FiIcons.FiShoppingCart,
-      'CreditCard': FiIcons.FiCreditCard,
-      'DollarSign': FiIcons.FiDollarSign,
-      'Eye': FiIcons.FiEye,
-      'GitHub': FiIcons.FiGithub,
-      'Linkedin': FiIcons.FiLinkedin,
-      'Twitter': FiIcons.FiTwitter,
-      'Facebook': FiIcons.FiFacebook,
-      'Instagram': FiIcons.FiInstagram,
-      'Youtube': FiIcons.FiYoutube,
-    };
-    
-    return iconMap[collection.icon] || FiIcons.FiFolder;
-  };
-
   const renderCollectionIcon = () => {
     if (collection.customIcon) {
       return (
         <img 
           src={collection.customIcon} 
           alt={collection.name} 
-          className="w-5 h-5 object-contain"
-          style={{ color: collection.color }}
+          className="w-5 h-5 object-contain" 
+          style={{color: collection.color}}
         />
       );
     }
     
     return (
       <SafeIcon 
-        icon={getCollectionIcon()} 
+        name={collection.icon} 
         className="w-5 h-5 text-gray-700 dark:text-gray-300" 
-        style={{ color: collection.color }}
+        style={{color: collection.color}}
       />
     );
   };
@@ -210,7 +139,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
               className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
             >
               <SafeIcon 
-                icon={collection.collapsed ? FiChevronRight : FiChevronDown} 
+                name={collection.collapsed ? "ChevronRight" : "ChevronDown"} 
                 className="w-4 h-4 text-gray-500" 
               />
             </motion.button>
@@ -228,7 +157,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
               
               {!parentId && (
                 <div className="drag-handle cursor-move ml-1 p-1 rounded hover:bg-gray-100 dark:hover:bg-dark-700" {...listeners}>
-                  <SafeIcon icon={FiMove} className="w-3 h-3 text-gray-400" />
+                  <SafeIcon name="Move" className="w-3 h-3 text-gray-400" />
                 </div>
               )}
             </div>
@@ -243,7 +172,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
               title={`Switch to ${collection.viewMode === 'grid' ? 'list' : 'grid'} view`}
             >
               <SafeIcon 
-                icon={collection.viewMode === 'grid' ? FiList : FiGrid} 
+                name={collection.viewMode === 'grid' ? "List" : "Grid"} 
                 className="w-4 h-4 text-gray-500" 
               />
             </motion.button>
@@ -255,7 +184,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                 onClick={() => setShowMenu(!showMenu)}
                 className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
               >
-                <SafeIcon icon={FiMoreHorizontal} className="w-4 h-4 text-gray-500" />
+                <SafeIcon name="MoreHorizontal" className="w-4 h-4 text-gray-500" />
               </motion.button>
 
               {showMenu && (
@@ -263,7 +192,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-10"
+                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-[100]"
                 >
                   <button
                     onClick={() => {
@@ -272,7 +201,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                     }}
                     className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
                   >
-                    <SafeIcon icon={FiPlus} className="w-4 h-4 mr-2" />
+                    <SafeIcon name="Plus" className="w-4 h-4 mr-2" />
                     Add Bookmark
                   </button>
                   
@@ -283,7 +212,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                     }}
                     className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
                   >
-                    <SafeIcon icon={FiFolder} className="w-4 h-4 mr-2" />
+                    <SafeIcon name="Folder" className="w-4 h-4 mr-2" />
                     Add Sub-Collection
                   </button>
                   
@@ -294,7 +223,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                     }}
                     className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
                   >
-                    <SafeIcon icon={FiEdit2} className="w-4 h-4 mr-2" />
+                    <SafeIcon name="Edit2" className="w-4 h-4 mr-2" />
                     Edit Collection
                   </button>
                   
@@ -302,7 +231,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                     onClick={handleShareCollection}
                     className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
                   >
-                    <SafeIcon icon={FiShare2} className="w-4 h-4 mr-2" />
+                    <SafeIcon name="Share2" className="w-4 h-4 mr-2" />
                     Share Collection
                   </button>
                   
@@ -315,7 +244,7 @@ const Collection = ({ collection, index, transparent, parentId = null, onDragEnd
                     }}
                     className="flex items-center w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-dark-700"
                   >
-                    <SafeIcon icon={FiTrash2} className="w-4 h-4 mr-2" />
+                    <SafeIcon name="Trash2" className="w-4 h-4 mr-2" />
                     Delete Collection
                   </button>
                 </motion.div>

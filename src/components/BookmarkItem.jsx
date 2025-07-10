@@ -7,8 +7,6 @@ import SafeIcon from '../common/SafeIcon';
 import { useBookmarks } from '../contexts/BookmarkContext';
 import EditBookmarkModal from './EditBookmarkModal';
 
-const { FiExternalLink, FiEdit2, FiTrash2, FiMoreHorizontal, FiMove, FiImage } = FiIcons;
-
 const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
   const { deleteBookmark } = useBookmarks();
   const [showMenu, setShowMenu] = useState(false);
@@ -79,7 +77,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
             }}
             className="p-1 rounded bg-white dark:bg-dark-800 shadow-sm hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
           >
-            <SafeIcon icon={FiMoreHorizontal} className="w-3 h-3 text-gray-500" />
+            <SafeIcon name="MoreHorizontal" className="w-3 h-3 text-gray-500" />
           </motion.button>
           
           {showMenu && (
@@ -87,7 +85,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="absolute right-0 mt-1 w-32 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-10"
+              className="absolute right-0 mt-1 w-32 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-[100]"
             >
               <button
                 onClick={(e) => {
@@ -97,7 +95,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-2 py-1 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiExternalLink} className="w-3 h-3 mr-1" />
+                <SafeIcon name="ExternalLink" className="w-3 h-3 mr-1" />
                 Open
               </button>
               
@@ -109,7 +107,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-2 py-1 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiEdit2} className="w-3 h-3 mr-1" />
+                <SafeIcon name="Edit2" className="w-3 h-3 mr-1" />
                 Edit
               </button>
               
@@ -120,7 +118,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-2 py-1 text-xs text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiTrash2} className="w-3 h-3 mr-1" />
+                <SafeIcon name="Trash2" className="w-3 h-3 mr-1" />
                 Delete
               </button>
             </motion.div>
@@ -133,7 +131,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
           {...listeners}
           {...attributes}
         >
-          <SafeIcon icon={FiMove} className="w-3 h-3 text-gray-400" />
+          <SafeIcon name="Move" className="w-3 h-3 text-gray-400" />
         </div>
         
         {/* Edit Modal */}
@@ -166,7 +164,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
           {...listeners}
           {...attributes}
         >
-          <SafeIcon icon={FiMove} className="w-4 h-4 text-gray-400" />
+          <SafeIcon name="Move" className="w-4 h-4 text-gray-400" />
         </div>
         
         {/* Favicon */}
@@ -212,7 +210,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
             }}
             className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-gray-200 dark:hover:bg-dark-500 transition-all"
           >
-            <SafeIcon icon={FiMoreHorizontal} className="w-4 h-4 text-gray-500" />
+            <SafeIcon name="MoreHorizontal" className="w-4 h-4 text-gray-500" />
           </motion.button>
           
           {showMenu && (
@@ -220,7 +218,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="absolute right-0 mt-2 w-40 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-10"
+              className="absolute right-0 mt-2 w-40 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-[100]"
             >
               <button
                 onClick={(e) => {
@@ -230,7 +228,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiExternalLink} className="w-4 h-4 mr-2" />
+                <SafeIcon name="ExternalLink" className="w-4 h-4 mr-2" />
                 Open
               </button>
               
@@ -242,7 +240,7 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiEdit2} className="w-4 h-4 mr-2" />
+                <SafeIcon name="Edit2" className="w-4 h-4 mr-2" />
                 Edit
               </button>
               
@@ -253,10 +251,10 @@ const BookmarkItem = ({ bookmark, collectionId, index, viewMode }) => {
                 }}
                 className="flex items-center w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-dark-700"
               >
-                <SafeIcon icon={FiTrash2} className="w-4 h-4 mr-2" />
+                <SafeIcon name="Trash2" className="w-4 h-4 mr-2" />
                 Delete
               </button>
-            </div>
+            </motion.div>
           )}
         </div>
       </div>

@@ -5,8 +5,6 @@ import SafeIcon from '../common/SafeIcon';
 import { useBookmarks } from '../contexts/BookmarkContext';
 import toast from 'react-hot-toast';
 
-const { FiX, FiPlus, FiLink, FiFileText, FiUpload } = FiIcons;
-
 const AddBookmarkModal = ({ onClose, collectionId = null }) => {
   const { collections, addBookmark } = useBookmarks();
   const [formData, setFormData] = useState({
@@ -66,7 +64,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[1000]"
       onClick={onClose}
     >
       <motion.div
@@ -84,7 +82,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
           >
-            <SafeIcon icon={FiX} className="w-5 h-5 text-gray-500" />
+            <SafeIcon name="X" className="w-5 h-5 text-gray-500" />
           </button>
         </div>
 
@@ -125,7 +123,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
               URL *
             </label>
             <div className="relative">
-              <SafeIcon icon={FiLink} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <SafeIcon name="Link" className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="url"
                 value={formData.url}
@@ -156,7 +154,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
             </label>
             <div className="flex items-center space-x-3">
               <label className="flex items-center justify-center px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-dark-700 transition-colors">
-                <SafeIcon icon={FiUpload} className="w-4 h-4 mr-2 text-gray-500" />
+                <SafeIcon name="Upload" className="w-4 h-4 mr-2 text-gray-500" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">Upload Icon</span>
                 <input
                   type="file"
@@ -173,7 +171,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
                     onClick={() => setFormData({ ...formData, customIcon: null })}
                     className="text-red-500 hover:text-red-600 transition-colors"
                   >
-                    <SafeIcon icon={FiX} className="w-4 h-4" />
+                    <SafeIcon name="X" className="w-4 h-4" />
                   </button>
                 </div>
               )}
@@ -185,7 +183,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
               Notes
             </label>
             <div className="relative">
-              <SafeIcon icon={FiFileText} className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+              <SafeIcon name="FileText" className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
               <textarea
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -208,7 +206,7 @@ const AddBookmarkModal = ({ onClose, collectionId = null }) => {
               type="submit"
               className="flex-1 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center space-x-2"
             >
-              <SafeIcon icon={FiPlus} className="w-4 h-4" />
+              <SafeIcon name="Plus" className="w-4 h-4" />
               <span>Add Bookmark</span>
             </button>
           </div>

@@ -71,15 +71,11 @@ const iconOptions = [
 ];
 
 const colorOptions = [
-  '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', 
-  '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1',
-  '#14b8a6', '#eab308', '#dc2626', '#9333ea', '#db2777',
-  '#0891b2', '#65a30d', '#ea580c', '#7c3aed', '#be185d',
-  '#0e7490', '#4d7c0f', '#c2410c', '#6d28d9', '#a21caf',
-  '#155e75', '#365314', '#9a3412', '#581c87', '#831843',
-  '#164e63', '#1a2e05', '#7c2d12', '#4c1d95', '#701a75',
-  '#0f172a', '#052e16', '#431407', '#312e81', '#4a044e',
-  '#64748b', '#6b7280', '#78716c', '#6c6c6c', '#525252',
+  '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16', '#f97316',
+  '#6366f1', '#14b8a6', '#eab308', '#dc2626', '#9333ea', '#db2777', '#0891b2', '#65a30d', '#ea580c',
+  '#7c3aed', '#be185d', '#0e7490', '#4d7c0f', '#c2410c', '#6d28d9', '#a21caf', '#155e75', '#365314',
+  '#9a3412', '#581c87', '#831843', '#164e63', '#1a2e05', '#7c2d12', '#4c1d95', '#701a75', '#0f172a',
+  '#052e16', '#431407', '#312e81', '#4a044e', '#64748b', '#6b7280', '#78716c', '#6c6c6c', '#525252',
   '#374151', '#1f2937', '#111827', '#0f0f0f', '#000000',
 ];
 
@@ -132,7 +128,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[1000]"
       onClick={onClose}
     >
       <motion.div
@@ -173,6 +169,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Icon
             </label>
+            
             {/* Custom Icon Upload */}
             <div className="mb-3">
               <label className="flex items-center justify-center w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-dark-700 transition-colors">
@@ -186,7 +183,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
                 />
               </label>
             </div>
-
+            
             {/* Current custom icon preview */}
             {formData.customIcon && (
               <div className="flex items-center space-x-3 mb-3 p-3 bg-gray-50 dark:bg-dark-700 rounded-lg">
@@ -203,7 +200,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
                 </button>
               </div>
             )}
-
+            
             {/* Icon Search */}
             <input
               type="text"
@@ -212,7 +209,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
               onChange={(e) => setIconSearch(e.target.value)}
               className="w-full px-3 py-2 mb-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-dark-700 text-gray-900 dark:text-white text-sm"
             />
-
+            
             <div className="grid grid-cols-8 gap-2 max-h-40 overflow-y-auto">
               {filteredIcons.map((option) => (
                 <button
@@ -236,6 +233,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Color
             </label>
+            
             {/* Color Presets */}
             <div className="grid grid-cols-10 gap-2 mb-3">
               {colorOptions.map((color) => (
@@ -252,7 +250,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
                 />
               ))}
             </div>
-
+            
             {/* Color Picker */}
             <div className="flex items-center space-x-3">
               <button
@@ -267,7 +265,7 @@ const EditCollectionModal = ({ collection, onClose }) => {
             </div>
             
             {showColorPicker && (
-              <div className="mt-2">
+              <div className="mt-2 z-[1001] relative">
                 <ChromePicker
                   color={formData.color}
                   onChange={(color) => setFormData({ ...formData, color: color.hex })}

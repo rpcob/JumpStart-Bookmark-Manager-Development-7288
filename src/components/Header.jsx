@@ -20,7 +20,7 @@ const Header = () => {
   const isSettings = location.pathname === '/settings';
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-dark-800/80 backdrop-blur-md border-b border-gray-200 dark:border-dark-700">
+    <header className="sticky top-0 z-[900] bg-white/80 dark:bg-dark-800/80 backdrop-blur-md border-b border-gray-200 dark:border-dark-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -29,10 +29,7 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center"
             >
-              <SafeIcon 
-                icon={FiIcons.FiZap} 
-                className="w-5 h-5 text-white" 
-              />
+              <SafeIcon icon={FiIcons.FiZap} className="w-5 h-5 text-white" />
             </motion.div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
               JumpStart
@@ -66,10 +63,7 @@ const Header = () => {
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600 transition-colors"
             >
-              <SafeIcon 
-                icon={theme === 'light' ? FiMoon : FiSun} 
-                className="w-5 h-5" 
-              />
+              <SafeIcon icon={theme === 'light' ? FiMoon : FiSun} className="w-5 h-5" />
             </motion.button>
 
             {/* User Menu */}
@@ -88,7 +82,7 @@ const Header = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1"
+                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-1 z-[100]"
                 >
                   <div className="px-3 py-2 border-b border-gray-200 dark:border-dark-700">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
@@ -98,7 +92,7 @@ const Header = () => {
                       {user?.email}
                     </p>
                   </div>
-                  
+
                   <Link
                     to="/settings"
                     className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
@@ -107,7 +101,7 @@ const Header = () => {
                     <SafeIcon icon={FiSettings} className="w-4 h-4 mr-2" />
                     Settings
                   </Link>
-                  
+
                   <button
                     onClick={() => {
                       setShowUserMenu(false);
@@ -126,9 +120,7 @@ const Header = () => {
       </div>
 
       {showAddModal && (
-        <AddCollectionModal
-          onClose={() => setShowAddModal(false)}
-        />
+        <AddCollectionModal onClose={() => setShowAddModal(false)} />
       )}
     </header>
   );

@@ -5,8 +5,6 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../common/SafeIcon';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const { FiExternalLink, FiZap } = FiIcons;
-
 const PublicView = () => {
   const { shareId } = useParams();
   const [data, setData] = useState(null);
@@ -151,7 +149,7 @@ const PublicView = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                <SafeIcon icon={FiZap} className="w-5 h-5 text-white" />
+                <SafeIcon name="Zap" className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">
                 JumpStart
@@ -220,7 +218,7 @@ const PublicView = () => {
                             {bookmark.title}
                           </h4>
                           <SafeIcon 
-                            icon={FiExternalLink} 
+                            name="ExternalLink" 
                             className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" 
                           />
                         </div>
